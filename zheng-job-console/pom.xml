@@ -10,6 +10,7 @@
     <packaging>war</packaging>
     <name>zheng-job-console Maven Webapp</name>
     <url>http://maven.apache.org</url>
+
     <dependencies>
         <dependency>
             <groupId>zheng-job</groupId>
@@ -110,6 +111,7 @@
         </dependency>
         <!-- 文件上传 end-->
     </dependencies>
+
     <build>
         <finalName>zheng-job-console</finalName>
     </build>

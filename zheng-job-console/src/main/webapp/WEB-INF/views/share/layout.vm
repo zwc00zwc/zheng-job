@@ -67,39 +67,6 @@
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                $screen_content
-##            <h1 class="page-header">用户列表</h1>
-##            <p>
-##                <button class="btn btn-large btn-primary" onclick="add();" type="button">新增用户</button>
-##            </p>
-##            <div class="table-responsive">
-##                <table class="table table-striped">
-##                    <thead>
-##                    <tr>
-##                        <th>编号</th>
-##                        <th>姓名</th>
-##                        <th>手机</th>
-##                        <th>地址</th>
-##                        <th>权限</th>
-##                        <th>操作</th>
-##                    </tr>
-##                    </thead>
-##                    <tbody>
-##                        #foreach($item in $list)
-##                        <tr>
-##                            <td>$item.id</td>
-##                            <td>$item.userName</td>
-##                            <td>$item.phone</td>
-##                            <td>$item.address</td>
-##                            <td>$item.role</td>
-##                            <td>
-##                                <a href="/Member/Add?mid=$item.id">修改</a>
-##                                <a href="javascript:void();" onclick="Delete($item.id)">删除</a>
-##                            </td>
-##                        </tr>
-##                        #end
-##                    </tbody>
-##                </table>
-##            </div>
         </div>
     </div>
 </div>
