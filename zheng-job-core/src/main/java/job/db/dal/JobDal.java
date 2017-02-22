@@ -23,7 +23,7 @@ import java.util.*;
  * Created by alan.zheng on 2017/2/9.
  */
 public class JobDal {
-    public Job queryByJobName(String jobName){
+    public static Job queryByJobName(String jobName){
         Job job=new Job();
         String[] args=new String[]{jobName};
         Connection connection=null;
