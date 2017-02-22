@@ -1,0 +1,117 @@
+#set($layout =  "share/hi-layout.vm" )
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 任务管理 <span class="c-gray en">&gt;</span> 任务列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+    <div class="cl pd-5 bg-1 bk-gray">
+        <span class="l">
+##            <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
+            #if($auth.isPermission("/job/add"))
+                <a class="btn btn-primary radius" href="javascript:;" onclick="job_add('添加任务','$!{request.getContextPath()}/job/add','800')"><i class="Hui-iconfont">&#xe600;</i> 添加任务</a>
+            #end
+##            #if($auth.isPermission("/role/resetadmin"))
+##                <a href="javascript:;" onclick="admin_role_reset()" class="btn btn-warning radius"> 重置管理员</a>
+##            #end
+        </span>
+    </div>
+    <div class="mt-20">
+        <div class="dataTables_wrapper no-footer">
+            <table class="table table-border table-bordered table-hover table-bg">
+                <thead>
+                <tr>
+                    <th scope="col" colspan="6">任务列表</th>
+                </tr>
+                <tr class="text-c">
+                    <th width="200">作业名</th>
+                    <th width="300">描述</th>
+                    <th width="300">任务执行表达式</th>
+                    <th width="100">状态</th>
+                    <th width="70">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                    #foreach($item in $jobs.model)
+                    <tr class="text-c">
+                        <td>$!{item.jobName}</td>
+                        <td>$!{item.remark}</td>
+                        <td>$!{item.corn}</td>
+                        <td>
+                            #if($item.status==1)
+                                <span class="label label-success radius">正在运行</span>
+                            #elseif(($item.status==-1))
+                                <span class="label label-warning radius">未运行</span>
+                            #elseif(($item.status==-2))
+                                <span class="label label-danger radius">已暂停</span>
+                            #end
+                        </td>
+                        <td class="f-14">
+                            #if($item.status==1)
+                                <a class="btn btn-warning radius" onclick="job_command(this,$!{item.id},'PAUSE')" href="javascript:;">暂停</a>
+                                <a class="btn btn-primary radius" onclick="job_command(this,$!{item.id},'EXECUTE')" href="javascript:;">执行</a>
+                                <a class="btn btn-warning radius" onclick="job_command(this,$!{item.id},'EDIT')" href="javascript:;">修改执行时间</a>
+                                <a class="btn btn-danger radius" onclick="job_command(this,$!{item.id},'SHUTDOWN')" href="javascript:;">停止</a>
+                            #elseif($item.status==-1)
+                                <a class="btn btn-danger radius" onclick="job_delete(this,$!{item.id})" href="javascript:;">删除</a>
+                            #elseif($item.status==-2)
+                                <a class="btn btn-success radius" onclick="job_command(this,$!{item.id},'RESUME')" href="javascript:;">启动</a>
+                                <a class="btn btn-danger radius" onclick="job_command(this,$!{item.id},'SHUTDOWN')" href="javascript:;">停止</a>
+                            #end
+                        </td>
+                    </tr>
+                    #end
+                </tbody>
+            </table>
+            #pagination($jobs,"/job/index?1=1")
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="$!{request.getContextPath()}/resource/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="$!{request.getContextPath()}/resource/lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="$!{request.getContextPath()}/resource/lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="$!{request.getContextPath()}/resource/js/h-ui/H-ui.js"></script>
+<script type="text/javascript" src="$!{request.getContextPath()}/resource/js/h-ui/H-ui.admin.js"></script>
+<script type="text/javascript">
+    /*任务-增加*/
+    function job_add(title,url,w,h){
+        layer_show(title,url,w,h);
+    }
+
+    /*任务-命令*/
+    function job_command(obj,id,command){
+        //此处请求后台程序，下方是成功后的前台处理……
+        jQuery.ajax({
+            url: '$!{request.getContextPath()}/job/command',
+            data: {jobid:id,command:command},
+            type: "post",
+            success: function (data) {
+                if (data.code > 0) {
+                    layer.msg(data.msg, {icon: 6,time:1000});
+                    location.replace(location.href);
+                }
+                else {
+                    layer.msg(data.msg,{icon:1,time:1000});
+                }
+            }
+        });
+    }
+
+    /*任务-删除*/
+    function job_delete(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            //此处请求后台程序，下方是成功后的前台处理……
+            jQuery.ajax({
+                url: '$!{request.getContextPath()}/job/delete',
+                data: {jobid:id},
+                type: "post",
+                success: function (data) {
+                    if (data.code > 0) {
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除!',{icon:1,time:1000});
+                    }
+                    else {
+                        layer.msg(data.msg,{icon:1,time:1000});
+                    }
+                }
+            });
+        });
+    }
+</script>
