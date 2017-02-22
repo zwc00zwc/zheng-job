@@ -106,8 +106,10 @@ public class JobDal {
             }
             if (count>0){
                 preparedStatement=connection.prepareStatement("SELECT id,jobName,corn,remark,createTime FROM tb_job limit ?,?");
-                String[] args=new String[]{query.getStartRow().toString(),query.getPageSize().toString()};
-                BaseDB.query(preparedStatement,args);
+                int i=1;
+                int m=2;
+                preparedStatement.setInt(i,query.getStartRow());
+                preparedStatement.setInt(m,query.getPageSize());
                 resultSet=preparedStatement.executeQuery();
                 list=resultToJob(resultSet);
             }
@@ -210,6 +212,7 @@ public class JobDal {
         Job job=null;
         try {
             while (resultSet.next()){
+                job=new Job();
                 job.setId(resultSet.getLong("id"));
                 job.setJobName(resultSet.getString("jobName"));
                 job.setCorn(resultSet.getString("corn"));
