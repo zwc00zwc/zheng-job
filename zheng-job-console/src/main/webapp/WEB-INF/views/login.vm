@@ -78,7 +78,6 @@
     <h1>Login</h1>
     <h1>$!{msg}</h1>
     <form action="$!{request.getContextPath()}/httplogin" method="post">
-        <input type="hidden" name="rurl" value="$!{rurl}">
         <input type="text" name="username" placeholder="username" required="required" />
         <input type="password" name="password" placeholder="password" required="required" />
         <button type="submit" class="btn btn-primary btn-block btn-large">sign in</button>
