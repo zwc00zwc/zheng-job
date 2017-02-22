@@ -1,11 +1,13 @@
-package job.db.model;
+package job.db.model.job;
+
+import job.db.model.BaseModel;
 
 import java.util.Date;
 
 /**
  * Created by alan.zheng on 2017/2/9.
  */
-public class Job {
+public class Job extends BaseModel {
     /**
      * id
      */

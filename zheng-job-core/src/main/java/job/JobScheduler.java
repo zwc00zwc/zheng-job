@@ -39,7 +39,7 @@ public class JobScheduler {
                 e.printStackTrace();
             }
             JobScheduleController jobScheduleController=new JobScheduleController(scheduler,jobDetail,jobConfig.getJobName());
-            job.db.model.Job job= JobDal.queryByJobName(jobConfig.getJobName());
+            job.db.model.job.Job job= JobDal.queryByJobName(jobConfig.getJobName());
             if (job!=null && !StringUtils.isEmpty(job.getCorn())){
                 jobScheduleController.scheduleJob(job.getCorn());
                 JobRegisterManager.instance().addJobScheduleController(jobConfig.getJobName(),jobScheduleController);
