@@ -17,6 +17,8 @@
 
     <import resource="classpath:config/spring-mvc.xml"/>
 
+    <bean id="jobDal" class="job.db.dal.JobDal" />
+
     <context:component-scan base-package="services"></context:component-scan>
 
     <!--<bean id="authExceptionHandler" class="handler.AuthExceptionHandler"></bean>-->

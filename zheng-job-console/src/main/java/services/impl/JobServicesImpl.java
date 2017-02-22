@@ -1,6 +1,7 @@
 package services.impl;
 
 import job.config.JobCommand;
+import job.db.dal.JobDal;
 import job.db.model.PageModel;
 import job.db.model.job.Job;
 import job.db.model.job.JobLog;
@@ -9,6 +10,7 @@ import job.db.model.job.query.JobQuery;
 import org.springframework.stereotype.Service;
 import services.JobServices;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -16,8 +18,11 @@ import java.util.List;
  */
 @Service
 public class JobServicesImpl implements JobServices {
+    @Resource
+    private JobDal jobDal;
+
     public boolean deleteJob(Long jobId) {
-        return false;
+        return jobDal.deleteJob(jobId);
     }
 
     public void jobCommand(Long jobId, JobCommand command) {
@@ -33,7 +38,7 @@ public class JobServicesImpl implements JobServices {
     }
 
     public PageModel<Job> queryPageList(JobQuery query) {
-        return null;
+        return jobDal.queryPageList(query);
     }
 
     public List<Job> queryList() {
