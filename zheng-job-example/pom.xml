@@ -23,13 +23,8 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>zheng</groupId>
+                <groupId>zheng-job</groupId>
                 <artifactId>zheng-job-core</artifactId>
-                <version>1.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>zheng</groupId>
-                <artifactId>zheng-businessmq-core</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
