@@ -1,0 +1,4 @@
+zhengregCenter:
+  serverList: localhost:2181
+  namespace: root
+  auth: auth

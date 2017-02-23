@@ -34,13 +34,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>boot</groupId>
-            <artifactId>boot-core</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>boot</groupId>
-            <artifactId>boot-common</artifactId>
+            <groupId>zheng-job</groupId>
+            <artifactId>zheng-job-core</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -51,20 +46,6 @@
             <groupId>com.dangdang</groupId>
             <artifactId>elastic-job-lite-spring</artifactId>
         </dependency>
-        <dependency>
-            <groupId>zheng</groupId>
-            <artifactId>zheng-job-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>zheng</groupId>
-            <artifactId>zheng-businessmq-core</artifactId>
-        </dependency>
-
-        <!-- 使用springframework自定义命名空间时引入 -->
-        <!--<dependency>-->
-        <!--<groupId>com.dangdang</groupId>-->
-        <!--<artifactId>elastic-job-spring</artifactId>-->
-        <!--</dependency>-->
     </dependencies>
 
     <build>
