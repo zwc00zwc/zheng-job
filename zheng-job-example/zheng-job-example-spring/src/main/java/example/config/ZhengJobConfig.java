@@ -26,7 +26,7 @@ public class ZhengJobConfig {
 
     @Bean(name = "jobConfig")
     public JobConfig jobConfig(final BaseJob springZhengJob) {
-        return new JobConfig("SecondJob", springZhengJob.getClass().getCanonicalName());
+        return new JobConfig("springZhengJob", springZhengJob.getClass().getCanonicalName());
     }
 
     @Bean(initMethod = "init",name = "SecondJobSpringJobScheduler" )

@@ -6,9 +6,12 @@ import job.config.JobConfig;
 import job.db.dal.JobDal;
 import job.log.JobLogManager;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.recipes.cache.TreeCache;
 import org.quartz.*;
 import org.quartz.Job;
 import org.quartz.impl.StdSchedulerFactory;
+import reg.listener.*;
 import reg.zookeeper.ZookeeperRegistryCenter;
 
 import java.util.Date;
@@ -43,6 +46,21 @@ public class JobScheduler {
             if (job!=null && !StringUtils.isEmpty(job.getCorn())){
                 jobScheduleController.scheduleJob(job.getCorn());
                 JobRegisterManager.instance().addJobScheduleController(jobConfig.getJobName(),jobScheduleController);
+                //注册任务
+                try {
+                    if (!zookeeperRegistryCenter.isExisted("/"+jobConfig.getJobName()+"")){
+                        CuratorFramework curatorFramework=(CuratorFramework) zookeeperRegistryCenter.getRawClient();
+
+                        curatorFramework.getConnectionStateListenable().addListener(new ConnectListener());
+
+                        TreeCache treeCache=new TreeCache(curatorFramework,"/"+jobConfig.getJobName()+"");
+                        treeCache.getListenable().addListener(new reg.listener.JobListener(jobConfig.getJobName()));
+                        treeCache.start();
+                        zookeeperRegistryCenter.createEphemeral("/"+jobConfig.getJobName()+"",jobConfig.getJobName());
+                    }
+                } catch (Exception e) {
+                    JobLogManager.log(jobConfig.getJobName(),e.toString(),new Date());
+                }
             }
         } catch (Exception e) {
             JobLogManager.log(jobConfig.getJobName(),e.toString(),new Date());
