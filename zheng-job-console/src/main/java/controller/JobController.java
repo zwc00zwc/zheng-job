@@ -32,8 +32,11 @@ public class JobController extends BaseController {
 
     @Auth(rule = "/job/index")
     @RequestMapping(value = "/job/index")
-    public String index(Model model,HttpSession httpSession){
+    public String index(Model model,HttpSession httpSession,Integer currPage){
         JobQuery query=new JobQuery();
+        if (currPage!=null){
+            query.setCurrPage(currPage);
+        }
         PageModel<Job> jobs= jobServices.queryPageList(query);
         model.addAttribute("jobs",jobs);
         model.addAttribute("user",getAuthUser(httpSession));

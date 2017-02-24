@@ -134,7 +134,11 @@ public class JobDal {
             preparedStatement.setString(2,job.getCorn());
             preparedStatement.setString(3,job.getRemark());
             preparedStatement.setString(4, DateUtility.getStrFromDate(new Date(),""));
-            return preparedStatement.execute();
+            if (preparedStatement.executeUpdate()>0){
+                return true;
+            }else {
+                return false;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
