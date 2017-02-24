@@ -3,13 +3,7 @@
 <div class="page-container">
     <div class="cl pd-5 bg-1 bk-gray">
         <span class="l">
-##            <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
-            #if($auth.isPermission("/job/add"))
-                <a class="btn btn-primary radius" href="javascript:;" onclick="job_add('添加任务','$!{request.getContextPath()}/job/add','800')"><i class="Hui-iconfont">&#xe600;</i> 添加任务</a>
-            #end
-##            #if($auth.isPermission("/role/resetadmin"))
-##                <a href="javascript:;" onclick="admin_role_reset()" class="btn btn-warning radius"> 重置管理员</a>
-##            #end
+            <a class="btn btn-primary radius" href="javascript:;" onclick="job_add('添加任务','$!{request.getContextPath()}/job/add','800')"><i class="Hui-iconfont">&#xe600;</i> 添加任务</a>
         </span>
     </div>
     <div class="mt-20">

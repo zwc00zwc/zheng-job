@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		   http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		   http://www.springframework.org/schema/context
+		   http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		   http://www.springframework.org/schema/aop
+		   http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
+
+    <context:annotation-config/>
+
+    <!-- 强制SPRING使用CGLIB动态代理，不使用JDK代理。 -->
+    <aop:config proxy-target-class="true"/>
+
+    <!--<bean id="authExceptionHandler" class="handler.AuthExceptionHandler"></bean>-->
+
+    <context:component-scan base-package="example.config"></context:component-scan>
+    <!--支持aspectj-->
+    <aop:aspectj-autoproxy/>
+
+    <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <!-- 线程池活跃的线程数 -->
+        <property name="corePoolSize" value="5" />
+        <!-- 线程池最大活跃的线程数 -->
+        <property name="maxPoolSize" value="10" />
+        <!-- 队列的最大容量 -->
+        <property name="queueCapacity" value="25" />
+    </bean>
+
+    <bean id="zookeeperConfig" class="reg.zookeeper.ZookeeperConfig">
+        <property name="serverLists" value="localhost:2181"></property>
+        <property name="namespace" value="root"></property>
+        <property name="auth" value="auth"></property>
+    </bean>
+
+    <!--<bean id="zookeeperRegistryCenter" class="reg.zookeeper.ZookeeperRegistryCenter" init-method="init">-->
+        <!--<constructor-arg type="reg.zookeeper.ZookeeperConfig">-->
+            <!--<ref bean="zookeeperConfig"></ref>-->
+        <!--</constructor-arg>-->
+    <!--</bean>-->
+
+    <!--<bean id="springZhengJob" class="example.job.SpringZhengJob"></bean>-->
+
+    <!--<bean id="jobConfig" class="job.config.JobConfig">-->
+        <!--<constructor-arg index="0">-->
+            <!--<value>springZhengJob</value>-->
+        <!--</constructor-arg>-->
+        <!--<constructor-arg index="1">-->
+            <!--<value>example.job.SpringZhengJob</value>-->
+        <!--</constructor-arg>-->
+    <!--</bean>-->
+
+    <!--<bean class="job.SpringJobScheduler" init-method="init">-->
+        <!--<constructor-arg type="job.config.JobConfig">-->
+            <!--<ref bean="jobConfig"></ref>-->
+        <!--</constructor-arg>-->
+        <!--<constructor-arg type="reg.zookeeper.ZookeeperRegistryCenter">-->
+            <!--<ref bean="jobZookeeperRegistryCenter"></ref>-->
+        <!--</constructor-arg>-->
+        <!--<constructor-arg type="job.base.BaseJob">-->
+            <!--<ref bean="springZhengJob"></ref>-->
+        <!--</constructor-arg>-->
+    <!--</bean>-->
+</beans>
