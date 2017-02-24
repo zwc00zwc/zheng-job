@@ -22,7 +22,7 @@ public class ZhengJobConfig {
     }
 
     @Resource
-    private ZookeeperRegistryCenter jobZookeeperRegistryCenter;
+    private ZookeeperRegistryCenter zookeeperRegistryCenter;
 
     @Bean(name = "jobConfig")
     public JobConfig jobConfig(final BaseJob springZhengJob) {
@@ -31,6 +31,6 @@ public class ZhengJobConfig {
 
     @Bean(initMethod = "init",name = "SecondJobSpringJobScheduler" )
     public JobScheduler dataflowJobScheduler(final BaseJob springZhengJob,final JobConfig jobConfig) {
-        return new SpringJobScheduler(jobConfig,jobZookeeperRegistryCenter,springZhengJob);
+        return new SpringJobScheduler(jobConfig,zookeeperRegistryCenter,springZhengJob);
     }
 }

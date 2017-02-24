@@ -36,11 +36,11 @@
         <property name="auth" value="auth"></property>
     </bean>
 
-    <!--<bean id="zookeeperRegistryCenter" class="reg.zookeeper.ZookeeperRegistryCenter" init-method="init">-->
-        <!--<constructor-arg type="reg.zookeeper.ZookeeperConfig">-->
-            <!--<ref bean="zookeeperConfig"></ref>-->
-        <!--</constructor-arg>-->
-    <!--</bean>-->
+    <bean id="zookeeperRegistryCenter" class="reg.zookeeper.ZookeeperRegistryCenter" init-method="init">
+        <constructor-arg type="reg.zookeeper.ZookeeperConfig">
+            <ref bean="zookeeperConfig"></ref>
+        </constructor-arg>
+    </bean>
 
     <!--<bean id="springZhengJob" class="example.job.SpringZhengJob"></bean>-->
 
