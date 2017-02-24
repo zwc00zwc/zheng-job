@@ -49,6 +49,23 @@ public class JobController extends BaseController {
         return "/job/add";
     }
 
+    @RequestMapping(value = "/job/editcorn")
+    public String editCorn(Model model,@RequestParam(value = "jobid") Long jobid){
+        Job job= jobServices.queryById(jobid);
+        model.addAttribute("job",job);
+        return "/job/corn";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/job/editcorning")
+    public JsonResult editCorning(Job job){
+        if (jobServices.updateCorn(job)){
+            jobServices.jobCommand(job.getId(), JobCommand.EDIT);
+            return jsonResult(1,"已执行");
+        }
+        return jsonResult(-1,"执行异常");
+    }
+
     @Auth(rule ="/job/add")
     @ResponseBody
     @RequestMapping(value = "/job/adding")

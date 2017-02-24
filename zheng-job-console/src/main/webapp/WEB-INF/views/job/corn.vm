@@ -1,23 +1,23 @@
 #set($layout =  "share/hi-layout.vm" )
 <article class="page-container">
-    <form class="form form-horizontal" id="form-job-add" method="post">
-        <input type="hidden" name="id" value="">
+    <form class="form form-horizontal" id="form-corn-edit" method="post">
+        <input type="hidden" name="id" value="$!{job.id}">
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>任务名：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" value="" placeholder="" id="jobName" name="jobName">
+                <input type="text" class="input-text" value="$!{job.jobName}" readonly="readonly" placeholder="" id="jobName" name="jobName">
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>任务执行表达式：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" value="" placeholder="" id="corn" name="corn">
+                <input type="text" class="input-text" value="$!{job.corn}" placeholder="" id="corn" name="corn">
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3">备注：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <textarea name="remark" cols="" rows="" class="textarea"  placeholder="说点什么...100个字符以内" dragonfly="true" onKeyUp="textarealength(this,100)"></textarea>
+                <textarea name="remark" cols="" rows="" class="textarea"  placeholder="说点什么...100个字符以内" dragonfly="true" onKeyUp="textarealength(this,100)">$!{job.remark}</textarea>
                 <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
             </div>
         </div>
@@ -37,7 +37,7 @@
             increaseArea: '20%'
         });
 
-        $("#form-job-add").validate({
+        $("#form-corn-edit").validate({
             rules:{
                 jobName:{
                     required:true
@@ -51,8 +51,8 @@
             success:"valid",
             submitHandler:function(form){
                 jQuery.ajax({
-                    url: '$!{request.getContextPath()}/job/adding',
-                    data: jQuery('#form-job-add').serialize(),
+                    url: '$!{request.getContextPath()}/job/editcorning',
+                    data: jQuery('#form-corn-edit').serialize(),
                     type: "post",
                     success: function (data) {
                         if (data.code > 0) {

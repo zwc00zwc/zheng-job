@@ -61,7 +61,13 @@ public class JobDal {
             preparedStatement=connection.prepareStatement("SELECT id,jobName,corn,remark,createTime FROM tb_job WHERE id=?");
             BaseDB.query(preparedStatement,args);
             resultSet=preparedStatement.executeQuery();
-            List<Job> list= resultToJob(resultSet);
+            while (resultSet.next()){
+                job.setId(resultSet.getLong("id"));
+                job.setJobName(resultSet.getString("jobName"));
+                job.setCorn(resultSet.getString("corn"));
+                job.setCreateTime(resultSet.getDate("createTime"));
+                job.setRemark(resultSet.getString("remark"));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -134,6 +140,28 @@ public class JobDal {
             preparedStatement.setString(2,job.getCorn());
             preparedStatement.setString(3,job.getRemark());
             preparedStatement.setString(4, DateUtility.getStrFromDate(new Date(),""));
+            if (preparedStatement.executeUpdate()>0){
+                return true;
+            }else {
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            BaseDB.dispose(connection,preparedStatement,null);
+        }
+        return false;
+    }
+
+    public boolean updateCorn(Job job){
+        Connection connection=null;
+        PreparedStatement preparedStatement=null;
+        connection=BaseDB.getConnection();
+        try {
+            preparedStatement=connection.prepareStatement("UPDATE tb_job SET corn=?,remark=? WHERE id=?");
+            preparedStatement.setString(1,job.getCorn());
+            preparedStatement.setString(2,job.getRemark());
+            preparedStatement.setLong(3,job.getId());
             if (preparedStatement.executeUpdate()>0){
                 return true;
             }else {

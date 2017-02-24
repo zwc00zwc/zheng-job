@@ -77,6 +77,10 @@ public class JobServicesImpl implements JobServices {
         return jobDal.insertJob(job);
     }
 
+    public boolean updateCorn(Job job) {
+        return jobDal.updateCorn(job);
+    }
+
     public PageModel<Job> queryPageList(JobQuery query) {
         PageModel<Job> pageModel=jobDal.queryPageList(query);
         if (pageModel!=null&&pageModel.getModel()!=null&&pageModel.getModel().size()>0){

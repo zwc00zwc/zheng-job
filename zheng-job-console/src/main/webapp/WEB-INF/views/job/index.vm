@@ -40,7 +40,7 @@
                             #if($item.status==1)
                                 <a class="btn btn-warning radius" onclick="job_command(this,$!{item.id},'PAUSE')" href="javascript:;">暂停</a>
                                 <a class="btn btn-primary radius" onclick="job_command(this,$!{item.id},'EXECUTE')" href="javascript:;">执行</a>
-                                <a class="btn btn-warning radius" onclick="job_command(this,$!{item.id},'EDIT')" href="javascript:;">修改执行时间</a>
+                                <a class="btn btn-warning radius" onclick="job_edit_corn('修改执行表达式','$!{request.getContextPath()}/job/editcorn?jobid=$!{item.id}','800')" href="javascript:;">修改执行表达式</a>
                                 <a class="btn btn-danger radius" onclick="job_command(this,$!{item.id},'SHUTDOWN')" href="javascript:;">停止</a>
                             #elseif($item.status==-1)
                                 <a class="btn btn-danger radius" onclick="job_delete(this,$!{item.id})" href="javascript:;">删除</a>
@@ -66,6 +66,10 @@
 <script type="text/javascript">
     /*任务-增加*/
     function job_add(title,url,w,h){
+        layer_show(title,url,w,h);
+    }
+
+    function job_edit_corn(title,url,w,h){
         layer_show(title,url,w,h);
     }
 

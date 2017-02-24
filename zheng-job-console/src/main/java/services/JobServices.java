@@ -25,5 +25,7 @@ public interface JobServices {
 
     void jobCommand(Long jobId,JobCommand command);
 
+    boolean updateCorn(Job job);
+
     boolean deleteJob(Long jobId);
 }
