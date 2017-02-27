@@ -19,11 +19,9 @@
 
     <bean id="jobDal" class="job.db.dal.JobDal" />
 
-    <context:component-scan base-package="services"></context:component-scan>
+    <context:component-scan base-package="services,annotation.service"></context:component-scan>
 
-    <!--<bean id="authExceptionHandler" class="handler.AuthExceptionHandler"></bean>-->
-
-    <!--<context:component-scan base-package="aopservice"></context:component-scan>-->
+    <bean id="authExceptionHandler" class="annotation.handler.AuthExceptionHandler"></bean>
     <!--支持aspectj-->
     <aop:aspectj-autoproxy/>
 
