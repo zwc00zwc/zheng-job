@@ -137,9 +137,17 @@ public class JobScheduleController {
      * 恢复单个作业.
      */
     public void resumeSingleJob() {
+//        try {
+//            if (!scheduler.isShutdown()) {
+//                scheduler.resumeJob(jobDetail.getKey());
+//            }
+//        } catch (final SchedulerException ex) {
+//            ex.printStackTrace();
+//        }
         try {
-            if (!scheduler.isShutdown()) {
-                scheduler.resumeJob(jobDetail.getKey());
+            if (!scheduler.isShutdown()){
+                CronTrigger trigger = (CronTrigger) scheduler.getTrigger(TriggerKey.triggerKey(triggerIdentity));
+                scheduler.rescheduleJob(TriggerKey.triggerKey(triggerIdentity), createTrigger(trigger.getCronExpression()));
             }
         } catch (final SchedulerException ex) {
             ex.printStackTrace();
