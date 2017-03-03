@@ -36,10 +36,10 @@ public class JobListener extends AbstractListener {
                 return;
             }
             if (JobCommand.PAUSE.getCommand().equals(eventstr)){
-                jobScheduleController.pauseJob();
+                jobScheduleController.pauseSingleJob();
             }
             if (JobCommand.RESUME.getCommand().equals(eventstr)){
-                jobScheduleController.resumeJob();
+                jobScheduleController.resumeSingleJob();
             }
             if (JobCommand.EXECUTE.getCommand().equals(eventstr)){
                 jobScheduleController.triggerJob();
